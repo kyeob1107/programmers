@@ -2,6 +2,6 @@
 SELECT MCDP_CD  '진료과 코드',
         count(1) '5월예약건수'
 from APPOINTMENT
-where APNT_YMD like '%-05-%'
+where APNT_YMD like '%22-05-%'
 group by 1
 order by 2,1
