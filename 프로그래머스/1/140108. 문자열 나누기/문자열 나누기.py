@@ -9,7 +9,7 @@ def solution(s):
             same_num+=1
         elif same_str==s[i]:
             same_num+=1
-        else: #세고 있는 글자가 있고 다른문자가 나올경우 아마 마지막꼬다리가 문제될수도
+        else: #세고 있는 글자가 있고 다른문자가 나올경우
             other_num+=1
             if same_num==other_num: #세고있던 글자와 다른글자 수가 같아질 경우
                 answer+=1 #문자열을 한번 나눠준다(실제로는 안하고 횟수만 체크)
