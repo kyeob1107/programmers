@@ -1,9 +1,17 @@
 def solution(s, skip, index):
-    answer=''
-    able_list=[chr(ord('a')+i) for i in range(ord('z')-ord('a')+1)] #가능한 목록
-    for i in skip: #스킵에 있는 얘들 제거
-        able_list.remove(i)
-    for j in range(len(s)):
-        answer+=able_list[(able_list.index(s[j])+index)%len(able_list)]
+    trans = list(s) #문자를 변환할 때 저장할 변수 #a~z : 97~122
+    skip_list=sorted([ord(i) for i in skip]) #skip에 해당하는 문자 아스키코드
+    for i in range(len(trans)):
+        move=0
+        for j in range(index):
+            move+=1
+
+            while (ord(trans[i])+move > ord("z") or ord(trans[i])+move in skip_list):
+                if ord(trans[i])+move > ord("z"): #z에서 다시 넘어갈경우 추가계산
+                    move-=26
+                while ord(trans[i])+move in skip_list:
+                    move+=1
+                    
+        trans[i]=chr(ord(trans[i])+move)
         
-    return answer
+    return ''.join(trans)
