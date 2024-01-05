@@ -7,4 +7,4 @@ SELECT hist.CAR_ID,
 FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY hist
 where hist.start_date<='2022-10-16'
 GROUP BY hist.CAR_ID
-order by 1 desc
+order by hist.CAR_ID desc
