@@ -1,0 +1,7 @@
+-- 코드를 입력하세요
+SELECT hst.CAR_ID,
+        round(avg(datediff(hst.END_DATE,hst.START_DATE)+1),1) AVERAGE_DURATION
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY hst
+GROUP BY hst.CAR_ID
+HAVING avg(datediff(hst.END_DATE,hst.START_DATE)+1)>=7
+ORDER BY AVERAGE_DURATION desc, hst.CAR_ID desc
