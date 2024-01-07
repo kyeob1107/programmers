@@ -1,5 +1,4 @@
-def solution(s):
-    def is_valid(string):
+def is_valid(string):
         stack = []
         for char in string:
             if char in ['[', '(', '{']:
@@ -17,6 +16,7 @@ def solution(s):
                     return False
         return not stack
 
+def solution(s):
     if len(s) % 2 != 0:
         return 0
 
@@ -28,35 +28,4 @@ def solution(s):
 
     return count
 
-def msj(s):
-    answer = 0
-    len_s = len(s)
-    s += s
-    
-    for i in range(len_s):
-        check = ""
-        for s_val in s[i:i+len_s]:
-            if s_val == '(':
-                check += '1'
-            elif s_val == '{':
-                check += '2'
-            elif s_val == '[':
-                check += '3'
-            else:
-                if check == "":
-                    check = "0"
-                    break
-                elif check[-1] == '1' and s_val == ')':
-                    check = check[:-1]
-                elif check[-1] == '2' and s_val == '}':
-                    check = check[:-1]
-                elif check[-1] == '3' and s_val == ']':
-                    check = check[:-1]
-        if check == "":
-            answer += 1
-    
-    return answer
-
-# 테스트
-print(solution("({[)}]"))  # 0
-print(msj("({[)}]"))  # 0
+#매우 오래걸려서 chatGPT를 통해 수정된 내용 이용 자세한 건 노션24.01.08참고
