@@ -1,5 +1,5 @@
--- 코드를 입력하세요
-SELECT distinct pct.CART_ID #, NAME
+-- 코드를 입력하세요	 	
+SELECT distinct pct.CART_ID
 FROM CART_PRODUCTS pct
 WHERE pct.CART_ID in (SELECT pct_mlik.CART_ID 
                         FROM CART_PRODUCTS pct_mlik
