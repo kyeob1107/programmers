@@ -1,0 +1,7 @@
+-- 코드를 입력하세요
+SELECT brd.TITLE, rly.BOARD_ID, rly.REPLY_ID, rly.WRITER_ID,
+        rly.CONTENTS, date_format(rly.CREATED_DATE,'%Y-%m-%d')
+FROM USED_GOODS_REPLY rly 
+JOIN USED_GOODS_BOARD brd on rly.BOARD_ID = brd.BOARD_ID
+WHERE MONTH(brd.CREATED_DATE) = '10'
+ORDER BY rly.CREATED_DATE, brd.TITLE
