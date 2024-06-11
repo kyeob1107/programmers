@@ -35,7 +35,7 @@ dfs_list = []
 bfs_list = []
 
 dfs(V)
-visited = [False] * (N + 1)
+visited = [False] * (N)
 bfs(V)
 
 print(*dfs_list)
