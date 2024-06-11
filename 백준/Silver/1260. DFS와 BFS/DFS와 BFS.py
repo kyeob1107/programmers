@@ -1,56 +1,42 @@
-from sys import stdin as s
+# 다른 1등 코드 보고 이해 후 모방해서 해보기
 from collections import deque
+from sys import stdin
 
-line_data = []
-nodes_list = deque()
-answer = []
-answer2 = []
-# 읽어오는 부분
-#s = open("input1260.txt","rt") #절대 경로도 되고, 상대 경로도 된다.
-                         # r read t text 
+input = stdin.readline
 
-n, m, v = map(int, s.readline().split())
-for i in range(m):
-    start, end = map(int,s.readline().split())
-    line_data.append([start, end]) # [[1, 2], [1, 3], [1, 4], [2, 4], [3, 4]]
-
-# dfs
-nodes_list.append(v)
-while nodes_list:
-    node = nodes_list.pop()
+def dfs(s):
+    visited[s-1] = True
+    dfs_list.append(s)
+    for e in sorted(adj_list[s-1]):
+        if not visited[e-1]:
+            dfs(e)
+            
+def bfs(s):
+    visited[s-1] = True
+    queue = deque([s])
+    while queue:
+        v = queue.popleft()
+        bfs_list.append(v)
+        for e in sorted(adj_list[v-1]):
+            if not visited[e-1]:
+                visited[e-1] = True
+                queue.append(e)
     
-    if node not in answer:
-        answer.append(node)
-        need_nodes=[]
-        
-        for elem in line_data:
-            if node in elem:
-                for value in elem:
-                    if value != node:
-                        need_nodes.append(value)
-        need_nodes.sort(reverse=True)
-        nodes_list.extend(need_nodes)
+N, M, V = map(int, input().split())
+adj_list = [[] for _ in range(N)]
+visited = [False] * (N)
 
-for i in answer:
-    print(i, end=" ")
-print()
+for _ in range(M):
+    a, b = map(int, input().split())
+    adj_list[a - 1].append(b)
+    adj_list[b - 1].append(a)
 
-# bfs
-nodes_list.append(v)
-while nodes_list:
-    node = nodes_list.popleft()
-    
-    if node not in answer2:
-        answer2.append(node)
-        need_nodes=[]
-        
-        for elem in line_data:
-            if node in elem:
-                for value in elem:
-                    if value != node:
-                        need_nodes.append(value)
-        need_nodes.sort()
-        nodes_list.extend(need_nodes)
+dfs_list = []
+bfs_list = []
 
-for i in answer2:
-    print(i, end=" ")
+dfs(V)
+visited = [False] * (N + 1)
+bfs(V)
+
+print(*dfs_list)
+print(*bfs_list)
