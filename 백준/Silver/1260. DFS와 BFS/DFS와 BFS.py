@@ -1,5 +1,3 @@
-# 다른 1등 코드 보고 이해 후 모방해서 해보기
-from collections import deque
 from sys import stdin
 
 input = stdin.readline
@@ -13,9 +11,9 @@ def dfs(s):
             
 def bfs(s):
     visited[s-1] = True
-    queue = deque([s])
+    queue = [s]
     while queue:
-        v = queue.popleft()
+        v = queue.pop(0)
         bfs_list.append(v)
         for e in sorted(adj_list[v-1]):
             if not visited[e-1]:
