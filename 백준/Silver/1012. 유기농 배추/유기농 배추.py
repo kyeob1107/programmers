@@ -1,11 +1,10 @@
-# 왜 빠른지 이해가 잘 안되서 그대로 해보는 코드
+# 왜 빠른지 이해가 잘 안되서 그대로 해보는 코드 + row, col만 다른 방식으로
 # 2등 코드
 import sys
 
 num = int(sys.stdin.readline())
 
-row = [-1, 1, 0, 0]
-col = [0, 0, 1, -1]
+move = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
 def bfs(x, y) :
     
@@ -15,10 +14,8 @@ def bfs(x, y) :
     while queue :
         x, y = queue.pop(0)
         
-        for i in range(4) :
-            nx = x + row[i]
-            ny = y + col[i]
-            
+        for dx, dy in move :
+            nx, ny = x + dx, y + dy
             if nx < 0 or nx >= n or ny < 0 or ny >= m :
                 continue
                 
