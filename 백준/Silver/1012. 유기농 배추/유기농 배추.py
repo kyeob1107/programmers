@@ -1,38 +1,48 @@
+# 왜 빠른지 이해가 잘 안되서 그대로 해보는 코드
+# 2등 코드
 import sys
-from collections import deque
-input = sys.stdin.readline
 
-def bfs(start_x, start_y):
-    move = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-    queue = deque([(start_x, start_y)])
-    positions.remove((start_x, start_y))
+num = int(sys.stdin.readline())
+
+row = [-1, 1, 0, 0]
+col = [0, 0, 1, -1]
+
+def bfs(x, y) :
     
-    while queue:
-        x, y = queue.popleft()
-        for dx, dy in move:
-            nx, ny = x + dx, y + dy
-            if (nx, ny) in positions:
-                positions.remove((nx, ny))
-                queue.append((nx, ny))
-
-T = int(input().strip())
-results = []
-
-for _ in range(T):
-    M, N, K = map(int, input().strip().split())
-    positions = set()
+    queue = [(x, y)]
+    matrix[x][y] = 0 
     
-    for _ in range(K):
-        X, Y = map(int, input().strip().split())
-        positions.add((X, Y))
+    while queue :
+        x, y = queue.pop(0)
+        
+        for i in range(4) :
+            nx = x + row[i]
+            ny = y + col[i]
+            
+            if nx < 0 or nx >= n or ny < 0 or ny >= m :
+                continue
+                
+            if matrix[nx][ny] == 1 :
+                queue.append((nx,ny))
+                matrix[nx][ny] = 0
 
-    cnt = 0
-    while positions:  # positions이 비어질 때까지 반복
-        px, py = next(iter(positions))  # positions의 임의의 요소 하나 가져오기
-        bfs(px, py)
-        cnt += 1
+for i in range(num) :
     
-    results.append(cnt)
-
-for result in results:
-    print(result)
+    n, m, k = map(int, sys.stdin.readline().split())
+    
+    matrix = [[0] * m for i in range(n)]
+    count = 0
+    
+    for i in range(k) :
+        
+        x, y = map(int, sys.stdin.readline().split())
+        matrix[x][y] = 1
+        
+        
+    for j in range(n) :
+        for k in range(m) :
+            if matrix[j][k] == 1:
+                bfs(j, k)
+                count += 1
+    
+    print(count)
