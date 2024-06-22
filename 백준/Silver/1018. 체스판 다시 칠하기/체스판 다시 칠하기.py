@@ -14,6 +14,12 @@ board = [[False if s == 'W' else True for s in input().strip()] for _ in range(N
 if board == case1 or board == case2:
     print(0)
 
+elif [r[:8] for r in case1[:8]] in [[r[j:j+8] for r in board[i:i+8]] for j in range(M-7) for i in range(N-7)]:
+    print(0)
+    
+elif [r[:8] for r in case2[:8]] in [[r[j:j+8] for r in board[i:i+8]] for j in range(M-7) for i in range(N-7)]:
+    print(0)
+
 else:
     for y in range(N):
         for x in range(M):
@@ -21,13 +27,11 @@ else:
                 check2[y][x] = 1
             else:
                 check1[y][x] = 1
-    ans = N * M
+    ans = (8*8)//2
     for start_pos_y in range(N - 7):
         for start_pos_x in range(M - 7):
             temp = min(sum(sum(row[start_pos_x:start_pos_x+8]) for row in check1[start_pos_y:start_pos_y+8]), 
                       sum(sum(row[start_pos_x:start_pos_x+8]) for row in check2[start_pos_y:start_pos_y+8]))
-            # print(start_pos_y, start_pos_x, temp)
             if ans > temp:
                 ans = temp
-
     print(ans)
