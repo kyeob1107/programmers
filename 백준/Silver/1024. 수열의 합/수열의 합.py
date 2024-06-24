@@ -1,11 +1,11 @@
-# 배열 만들어서
+# 배열 만들어서 합 구하는 방식 변경
 
 import sys
 
 input = sys.stdin.readline
 
 N, L = map(int, input().split())
-s = sum([*range(L)])
+s = (L-1) * L //2
 diff = 0
 
 while N != s :
@@ -19,7 +19,7 @@ while N != s :
         
     else:
         L += 1
-        s = sum([*range(L)])
+        s = (L-1) * L //2
 
 if N == (s + diff*L):
     print(*[i + diff for i in range(L)])
