@@ -1,19 +1,17 @@
 import sys
 input = sys.stdin.readline
 
-
 N, M = map(int, input().split())
-six_prices = []
-one_prices = []
+
+six_min = 1000
+one_min = 1000
 
 for _ in range(M):
     six, one = map(int, input().split())
-    six_prices.append(six)
-    one_prices.append(one)
-# six_prices, one_prices = map(list, zip(*(map(int, input().split()) for _ in range(M)))) #한줄로 하고 싶다면
+    six_min = min(six, six_min)
+    one_min = min(one, one_min)
+    
 
-six_min = min(six_prices)
-one_min = min(one_prices)
 money = 0
 
 if six_min > one_min * 6:
