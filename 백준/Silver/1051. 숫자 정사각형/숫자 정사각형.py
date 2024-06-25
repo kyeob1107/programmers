@@ -16,8 +16,9 @@ for positions in rectangle:
     
     for pos in positions:
         row, col = pos
-        for r in range(1, max_len):
+        for r in range(max_len, 0, -1):
             if (row + r, col) in positions:
                 if (row, col + r) in positions and (row + r, col + r) in positions:
                     ans = max(ans, r + 1)
+                    break
 print(ans**2)
