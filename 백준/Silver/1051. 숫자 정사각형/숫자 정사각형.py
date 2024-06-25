@@ -1,23 +1,19 @@
 import sys
-from collections import deque
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
-rectangle = []
-selections = dict()
+rectangle = [[] for _ in range(10)]
 for i in range(N):
     row_temp = [int(n) for n in input().strip()]
-    rectangle.append(row_temp)
     for j, val in enumerate(row_temp):
-        if val not in selections:
-            selections[val] = [(i, j)]
-        else:
-            selections[val].append((i, j))
+        rectangle[val%10].append((i, j))
 
-selections = {k: v for k, v in selections.items() if len(v)>3}
 ans = 1
 max_len = min(N, M)
-for positions in selections.values():
+for positions in rectangle:
+    if len(positions) < 4:
+        continue
+    
     for pos in positions:
         row, col = pos
         for r in range(1, max_len):
