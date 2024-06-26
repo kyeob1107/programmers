@@ -1,15 +1,26 @@
-import sys
-input = sys.stdin.readline
-
-def good_section(S, n):
-    if n in S:
-        return 0
-    under = max([s for s in S if s < n] + [0]) + 1
-    upper = min([s for s in S if s > n] + [1001]) - 1
-    return (n - under) * (upper - n + 1) + (upper - n)
-
-L =int(input())
-S = list(map(int, input().split()))
+# 1등 코드 확인용
+l = int(input())
+s = list(map(int, input().split()))
 n = int(input())
 
-print(good_section(S, n))
+s.sort()
+min = 1
+max = 1000
+for i in s:
+    if n > i:
+        min = i + 1
+
+    if n < i:
+        max = i - 1
+        break
+
+if n == min:
+    ans = max - n
+
+else:
+    ans = (n - min + 1) * (max - n + 1) - 1
+
+if n in s:
+    ans = 0
+
+print(ans)
