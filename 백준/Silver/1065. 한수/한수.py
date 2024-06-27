@@ -1,24 +1,14 @@
-# 뤼튼한테 개선해보라 해서 얻은 코드
-import sys
-input = sys.stdin.readline
+# 1등 코드 비교확인용
+def func(a):
+    if(a<100):
+        return a
+    else:
+        x = 99
+        for i in range(100,a+1):
+            
+            if((i//100)+i%10==2*((i//10)%10)):
+                x = x+1
+        return x
 
-N = int(input())
-
-def is_hansu(num):
-    str_num = str(num)
-    if len(str_num) <= 2:
-        return True
-    diff = int(str_num[1]) - int(str_num[0])
-    for i in range(1, len(str_num) - 1):
-        if int(str_num[i + 1]) - int(str_num[i]) != diff:
-            return False
-    return True
-
-if N < 100:
-    print(N)
-else:
-    cnt = 99
-    for i in range(100, N + 1):
-        if is_hansu(i):
-            cnt += 1
-    print(cnt)
+x = int(input())
+print(func(x))
