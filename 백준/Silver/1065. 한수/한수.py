@@ -1,23 +1,24 @@
+# 뤼튼한테 개선해보라 해서 얻은 코드
 import sys
 input = sys.stdin.readline
 
-N =  int(input())
-N_len = len(str(N))
+N = int(input())
 
-if N_len <=2:
+def is_hansu(num):
+    str_num = str(num)
+    if len(str_num) <= 2:
+        return True
+    diff = int(str_num[1]) - int(str_num[0])
+    for i in range(1, len(str_num) - 1):
+        if int(str_num[i + 1]) - int(str_num[i]) != diff:
+            return False
+    return True
+
+if N < 100:
     print(N)
-elif 999 <= N <= 1000:
-    print(144)
 else:
-    first_num = N//10**(N_len - 1)
-    r_list = [i for i in range((9 - first_num) // (N_len - 1), -1, -1)] + [i for i in range(-1, -1 * (first_num // (N_len - 1)) - 1, -1)]
-    ans = 99 + (first_num) * len(r_list)
-    for i, r in enumerate(r_list):
-        temp = [(first_num + r*m) * 10**((N_len-1) - m) for m in range(N_len)]
-        number = sum(temp)
-        if number <= N:
-            ans -= i
-            break
-    if number > N:
-        ans -= len(r_list)
-    print(ans)
+    cnt = 99
+    for i in range(100, N + 1):
+        if is_hansu(i):
+            cnt += 1
+    print(cnt)
