@@ -1,14 +1,14 @@
-# 뤼튼에게 개선 받아서 이해하고 다시 쓴 것 에라토스테네스 체 알고리즘 써서 소수리스트 구해서 그것 이용 방식
+# 뤼튼이 개선 해준 코드
 import sys
-input = sys.stdin.readline
+import math
 
 def sieve(max_num):
-    is_prime = [1] * (max_num + 1)
-    is_prime[0] = is_prime[1] = 0
-    for i in range(2, int((max_num)**0.5) + 1):
+    is_prime = [True] * (max_num + 1)
+    is_prime[0] = is_prime[1] = False
+    for i in range(2, int(math.sqrt(max_num)) + 1):
         if is_prime[i]:
             for j in range(i * i, max_num + 1, i):
-                is_prime[j] = 0
+                is_prime[j] = False
     return [x for x in range(max_num + 1) if is_prime[x]]
 
 def pm(n, primes):
@@ -23,13 +23,21 @@ def pm(n, primes):
         count += 1
     return count
 
-A, B = map(int, input().split())
-primes = sieve(int(B**0.5) + 1)
-cnt = 0
+input = sys.stdin.read
 
-for n in range(A, B + 1):
-    num = pm(n, primes)
-    if num != 1 and all(num % i != 0 for i in range(2, int(num**0.5) + 1)):
-        cnt += 1
+def main():
+    data = input()
+    A, B = map(int, data.split())
+    max_num = B
+    primes = sieve(int(math.sqrt(max_num)) + 1)
+    cnt = 0
 
-print(cnt)
+    for n in range(A, B + 1):
+        num = pm(n, primes)
+        if num != 1 and all(num % i != 0 for i in range(2, int(math.sqrt(num)) + 1)):
+            cnt += 1
+
+    print(cnt)
+
+if __name__ == "__main__":
+    main()
