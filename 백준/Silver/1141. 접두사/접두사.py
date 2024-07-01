@@ -1,16 +1,14 @@
+# 1등 코드 확인용
 import sys
 input = sys.stdin.readline
 
-N = int(input())
-word_list = []
-for _ in range(N):
-    word_list.append(input().strip())
 
-word_list.sort(key=len)
-cnt = 0
+n = int(input())
+string_set = [input().strip() for _ in range(n)]
+string_set.sort()
+answer = 1
+for i in range(1, n):
+    if string_set[i-1] != string_set[i][:len(string_set[i-1])]:
+        answer += 1
 
-for i in range(N):
-    prefix = False
-    if all(not word_list[j].startswith(word_list[i]) for j in range(i + 1, N)):
-        cnt += 1
-print(cnt)
+print(answer)
