@@ -1,14 +1,13 @@
+# 2등 코드 이해용
 import sys
 input = sys.stdin.readline
+n,k = map(int,input().split())
+i,*q = range(n+1)
 
-N, K = map(int, input().split())
 result = []
-remain_list = [*range(1, N+1)]
+for p in q[::-1]:
+    i = ( i + k - 1) % p
+    result.append(q.pop(i))
 
-pop_index = 0
-while remain_list:
-    pop_index = (pop_index + K - 1) % len(remain_list)
-    result.append(remain_list.pop(pop_index))
-
-ans = ", ".join(map(str,result))
+ans = str(result)[1:-1]
 print(f"<{ans}>")
