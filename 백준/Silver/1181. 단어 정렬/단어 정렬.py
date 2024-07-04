@@ -1,19 +1,16 @@
-# 2차시도 정렬 먼저하고 글자순대로 배치
+# 뤼튼에게 개선해달라고 하면서 알게된 것 sorted의 key인자를 활용하면 한번에 여러기준으로 정렬 바로 가능함
 import sys
 input = sys.stdin.readline
-N = int(input())
-word_len = [0] * 50
-data = []
+
+N = int(input().strip())
+data = set()
+
 for _ in range(N):
     w_temp = input().strip()
-    if w_temp not in data:
-        data.append(w_temp)
-    if not word_len[len(w_temp) - 1]:
-        word_len[len(w_temp) - 1] = 1
-lens = [l + 1 for l, c in enumerate(word_len) if c]
-data.sort()
-ans = []
-for l in lens:
-    ans += [s for s in data if len(s) == l]
-for p in ans:
-    print(p)
+    data.add(w_temp)
+
+# 데이터를 길이와 사전순으로 정렬
+sorted_data = sorted(data, key=lambda x: (len(x), x))
+
+for word in sorted_data:
+    print(word)
