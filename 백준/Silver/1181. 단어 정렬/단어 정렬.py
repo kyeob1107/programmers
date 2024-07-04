@@ -1,16 +1,10 @@
-# 뤼튼에게 개선해달라고 하면서 알게된 것 sorted의 key인자를 활용하면 한번에 여러기준으로 정렬 바로 가능함
-# 추가로 출력방식 변경
+# 6등 코드 5등 코드와 비슷 확인용
 import sys
-input = sys.stdin.readline
 
-N = int(input().strip())
-data = set()
+n = int(sys.stdin.readline())
+words = [sys.stdin.readline().rstrip() for i in range(n)]
+words = list(set(words))
+words.sort()
+words.sort(key=len)
 
-for _ in range(N):
-    w_temp = input().strip()
-    data.add(w_temp)
-
-# 데이터를 길이와 사전순으로 정렬
-sorted_data = sorted(data, key=lambda x: (len(x), x))
-
-print('\n'.join(sorted_data))
+print('\n'.join(words))
