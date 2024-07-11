@@ -1,27 +1,41 @@
-# 다른 분 것 참고
+# 참고 레퍼런스2
+# 순열 (Python3 시간초과 / PyPy3는 통과)
 import sys
+from itertools import permutations
+
 input = sys.stdin.readline
-
-def dfs(idx, result, add, sub, mul, div):
-    global max_res, min_res
-    if idx == N:
-        max_res = max(max_res, result)
-        min_res = min(min_res, result)
-        return 
-    if add > 0:
-        dfs(idx + 1, result + series[idx], add - 1, sub, mul, div)
-    if sub > 0:
-        dfs(idx + 1, result - series[idx], add, sub - 1, mul, div)
-    if mul > 0:
-        dfs(idx + 1, result * series[idx], add, sub, mul - 1, div)
-    if div > 0:
-        dfs(idx + 1, int(result / series[idx]), add, sub, mul, div - 1)
-
 N = int(input())
-series = list(map(int, input().split()))
-add, sub, mul, div = map(int, input().split()) # + - * //
-min_res = 10**9
-max_res = -10**9
-dfs(1, series[0], add, sub, mul, div)
-print(max_res)
-print(min_res)
+num = list(map(int, input().split()))
+op_num = list(map(int, input().split()))  # +, -, *, /
+op_list = ['+', '-', '*', '/']
+op = []
+
+for k in range(len(op_num)):
+    for i in range(op_num[k]):
+        op.append(op_list[k])
+
+maximum = -10**9
+minimum = 10**9
+
+def solve():
+    global maximum, minimum
+    for case in permutations(op, N - 1):
+        total = num[0]
+        for r in range(1, N):
+            if case[r - 1] == '+':
+                total += num[r]
+            elif case[r - 1] == '-':
+                total -= num[r]
+            elif case[r - 1] == '*':
+                total *= num[r]
+            elif case[r - 1] == '/':
+                total = int(total / num[r])
+	
+        if total > maximum:
+            maximum = total
+        if total < minimum:
+            minimum = total
+
+solve()
+print(maximum)
+print(minimum)
