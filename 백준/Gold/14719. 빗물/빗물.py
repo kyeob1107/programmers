@@ -1,14 +1,21 @@
+# 뭔가 계산 단순화해서 가능할 듯해서 시도 , 인덱스 저장하고 계산방식 2
 import sys
 input = sys.stdin.readline
 H, W = map(int, input().split())
 height_arr = list(map(int, input().split()))
+min_h =  min(height_arr)
+res = 0
 
-graph = [[1 if H - i <= height_arr[j] else 0 for j in range(W)] for i in range(H)] # H 관련해서는 최소 ~ 최대 만큼만 갯수 하면 될듯
+for standard in range(H, min_h, -1):
+    temp = 0
+    build = False
+    for h in height_arr:
+        if not build and h >= standard:
+            build = True
+        elif build and h < standard:
+            temp += 1
+        elif build and h >= standard:
+            res += temp
+            temp = 0
 
-for h in range(H):
-    if sum(graph[h]) >= 2: # (h == 0 or not (2 in graph[h-1])) and
-        wall_index = [i for i in range(W) if graph[h][i] == 1]
-        for start, end in zip(wall_index, wall_index[1:]):
-            graph[h][start + 1: end] = [2] * (end - start - 1)
-            
-print(sum(row.count(2) for row in graph))
+print(res)
