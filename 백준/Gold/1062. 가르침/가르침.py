@@ -1,36 +1,26 @@
-# 레퍼런스 원본
+# pypy 1등 코드를 python으로 제출하면 어떤지 궁금, 비교
 from itertools import combinations
+n,k = map(int,input().split())
+if k < 5:
+    print(0)
 
-def solve():
-    N, K  = map(int, input().split())
-    if K < 5:
-        return 0
-    if K == 26:
-        return N
-
-    essential = {'a', 'n', 't', 'i', 'c'}
-    words = [input()[4:-4] for _ in range(N)]
-
-    all_need = set()
-    for i in range(N):
-        for char in words[i]:
-            if char not in essential:
-                all_need.add(char)
-
-    if len(all_need) + 5 <= K:
-        return N
-
-    MAX = 0
-    for comb in combinations(all_need, K-5):
-        comb = set(comb) | essential
-        cnt = 0
-        for word in words:
-            for char in word:
-                if char not in comb:         # 변경부분
-                    break                    # 변경부분
-            else:                            # 변경부분
-                cnt += 1                     # 변경부분
-        if cnt > MAX:
-            MAX = cnt
-    return MAX
-print(solve())
+else:
+    k -= 5
+    word=[]
+    study ={'a','n','t','i','c'}
+    alpha = {key: v for v, key in enumerate((set(map(chr,range(ord('a'), ord('z')+1))) - study))}
+    cnt = 0
+    for _ in range(n):
+        temp = 0
+        for i in set(input())-study:
+            temp |= (1<<alpha[i])
+        word.append(temp)
+    count = (2**j for j in range(21))
+    for comb in combinations(count,k):
+        test = sum(comb)
+        ct = 0
+        for cb in word:
+            if test&cb == cb:
+                ct +=1
+        cnt = max(cnt,ct)
+    print(cnt)
