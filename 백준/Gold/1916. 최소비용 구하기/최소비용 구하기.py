@@ -1,28 +1,47 @@
-# 레퍼런스
-from collections import deque
+# 다익스트라 알고리즘 찾아보고 사용 -> 왜 자꾸 2%대에서 틀리는지 모르겠음
 import sys
-
 input = sys.stdin.readline
+N = int(input().strip()) # 도시갯수
+M = int(input().strip()) # 버스갯수
 
-N, M = int(input()), int(input())
-arr = [list(map(int, input().strip().split())) for _ in range(M)]
-graph = [[-1] * (N+1) for _ in range(N+1)]
-for i, j, cost in arr:
-    if graph[i][j] == -1 or graph[i][j] > cost:
-        graph[i][j] = cost
+graph = [[] for _ in range(N + 1)]
+visited = [0] * (N + 1)
+init = float('inf') # 100_000 * M
+cost = [init] * (N + 1)
 
-visit = [False] * (N+1)
-distance = [0] * (N+1)
-q = deque()
-start, end = list(map(int, input().strip().split()))
-q.append(start)
-visit[start] = True
-while q:
-    now = q.popleft()
-    for i, cost in enumerate(graph[now]):
-        if cost > -1 and (not visit[i] or (visit[i] and distance[i] > distance[now] + cost)):
-            q.append(i)
-            visit[i] = True
-            distance[i] = distance[now] + cost
+for _ in range(M):
+    a, b, c = map(int, input().split())
+    graph[a].append((b, c))
 
-print(distance[end])
+start, end = map(int, input().split())
+
+def get_smallest_city():
+    min_val = init
+    index = 0
+    for i in range(1, N + 1):
+        if cost[i] < min_val and not visited[i]:
+            min_val = cost[i]
+            index = i
+    return index
+
+def dijkstra(start):
+    cost[start] = 0
+    visited[start] = 1
+    for route in graph[start]:
+        if cost[route[0]] != init:
+            cost[route[0]] = min(cost[route[0]], route[1])
+        else:
+            cost[route[0]] = route[1]
+    for i in range(N - 1):
+        now = get_smallest_city()
+        visited[now] = 1
+        for bus in graph[now]:
+            cost_cal = cost[now] + bus[1]
+            if cost_cal < cost[bus[0]]:
+                cost[bus[0]] = cost_cal
+
+if start == end:
+    print(0)
+else:
+    dijkstra(start)
+    print(cost[end])
