@@ -1,3 +1,4 @@
+# 함수부분 그냥 결과 저장하고 저장 결과 가져다 쓰기
 import heapq
 import sys
 input = sys.stdin.readline
@@ -31,10 +32,9 @@ def dijkstra(graph, start):
     
     return distances
 
-for i, distance in enumerate(dijkstra(graph, start)):
-    if i == 0:
-        continue
-    if distance == init:
+distances = dijkstra(graph, start)
+for i in range(1, V + 1):
+    if distances[i] == init:
         print("INF")
     else:
-        print(distance)
+        print(distances[i])
