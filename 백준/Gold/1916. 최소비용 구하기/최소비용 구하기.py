@@ -1,4 +1,5 @@
 # 다익스트라 알고리즘 찾아보고 사용 -> 왜 자꾸 2%대에서 틀리는지 모르겠음
+# 이유 찾음 중복 노선 있을 경우 무조건 나중에 나온 노선의 값으로 계산해서 그럼, 그래서 수정했음2(더 괜찮은 방식 있는 듯해서 수정)
 import sys
 input = sys.stdin.readline
 N = int(input().strip()) # 도시갯수
@@ -28,10 +29,9 @@ def dijkstra(start):
     cost[start] = 0
     visited[start] = 1
     for route in graph[start]:
-        if cost[route[0]] != init:
-            cost[route[0]] = min(cost[route[0]], route[1])
-        else:
+        if cost[route[0]] > route[1]:
             cost[route[0]] = route[1]
+    
     for i in range(N - 1):
         now = get_smallest_city()
         visited[now] = 1
